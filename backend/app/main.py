@@ -24,7 +24,15 @@ app.add_middleware(
 agent = AutoAssistAgent(
     LocalKnowledgeBase(settings.knowledge_dir),
     settings.escalation_threshold,
-    GroundedGenerator(settings.openai_api_key, settings.openai_model),
+    GroundedGenerator(
+        api_key=settings.llm_api_key,
+        model=settings.llm_model,
+        base_url=settings.llm_base_url,
+        temperature=settings.llm_temperature,
+        max_tokens=settings.llm_max_tokens,
+        app_url=settings.llm_app_url,
+        app_name=settings.llm_app_name,
+    ),
 )
 
 
@@ -35,7 +43,14 @@ def startup() -> None:
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "service": settings.app_name}
+    return {
+        "status": "ok",
+        "service": settings.app_name,
+        "llm": {
+            "configured": agent.generator.configured,
+            "model": settings.llm_model,
+        },
+    }
 
 
 @app.post("/api/chat", response_model=ChatResponse)

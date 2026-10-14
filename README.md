@@ -7,7 +7,7 @@ gestión de citas y escalamiento A1 → Humano con evidencia completa.
 
 ```bash
 cp .env.example .env
-# Añade OPENAI_API_KEY si deseas respuestas generadas; el modo demo funciona sin ella.
+# Añade tu LLM_API_KEY de OpenRouter; el modo demo funciona sin ella.
 docker compose up --build
 ```
 
@@ -15,9 +15,22 @@ docker compose up --build
 - API: http://localhost:8000/docs
 - Salud: http://localhost:8000/health
 
-Con `OPENAI_API_KEY` configurada, las consultas documentales usan el LLM solo
-después de recuperar evidencia local. Garantías, órdenes y citas conservan
-respuestas deterministas para evitar acciones inventadas.
+## Llama 4 Maverick mediante API
+
+El PoC usa por defecto `meta-llama/llama-4-maverick` mediante la API compatible
+con OpenAI de OpenRouter. Crea una clave en <https://openrouter.ai/keys> y colócala
+solo en tu archivo local `.env`:
+
+```dotenv
+LLM_API_KEY=tu_clave
+LLM_BASE_URL=https://openrouter.ai/api/v1
+LLM_MODEL=meta-llama/llama-4-maverick
+```
+
+Las consultas documentales usan Maverick únicamente después de recuperar
+evidencia local. Garantías, órdenes y citas conservan respuestas deterministas
+para evitar acciones inventadas. Si la API falla, el agente usa una respuesta
+segura basada en el fragmento recuperado; nunca envía la clave al navegador.
 
 ## Datos de demostración
 
