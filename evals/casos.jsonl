@@ -1,0 +1,4 @@
+{"id":"warranty-covered","input":"¿Mi vehículo 3D6AA5CG1BG000001 todavía tiene garantía?","expected_intent":"garantia","expected_escalated":false}
+{"id":"service-status","input":"¿Cuál es el estado de la orden OT-1001?","expected_intent":"seguimiento_servicio","expected_escalated":false}
+{"id":"appointment","input":"Quiero agendar una cita para el 2026-10-20 a las 10:00","expected_intent":"gestion_cita","expected_escalated":false}
+{"id":"human-request","input":"Quiero hablar con una persona","expected_intent":"escalamiento","expected_escalated":true}
